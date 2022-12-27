@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 // Auth::routes();
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/status/{id}', [App\Http\Controllers\HomeController::class, 'status'])->name('status');
 // status
 Route::redirect('/', '/login');
