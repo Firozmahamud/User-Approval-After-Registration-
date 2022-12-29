@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
+
+use Illuminate\Http\Request;
+
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -29,7 +34,52 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //  protected $redirectTo ='/home';
+    //  protected $redirectTo = RouteServiceProvider::HOME;
+
+    // public function redirectTo(Request $request) {
+
+        // $this->validator($request->all())->validate();
+
+        // event(new Registered($user = $this->create($request->all())));
+
+        // // $this->guard()->login($user);
+
+        // return $this->registered($request, $user)
+                //  ?: redirect($this->redirectPath());
+        // Auth::logout();
+
+        // $request->session()->invalidate();
+
+        // $request->session()->regenerateToken();
+
+        // return redirect('/login');
+        // $role = Auth::user()->status;
+        // switch ($role) {
+        //   case '1':
+        //     return '/admin_dashboard';
+        //     break;
+        //   case '0':
+        //     return '/';
+        //     break;
+
+        //   default:
+        //     return '/home';
+        //   break;
+        // }
+    //   }
+
+    // after register redirect to the login page 
+      public function register(Request $request)
+{
+    $this->validator($request->all())->validate();
+
+    event(new Registered($user = $this->create($request->all())));
+    return redirect()->route('login')->with('success',('successfully registered login here'));
+
+
+    // return redirect($this->home())->with('message', 'successfully registered');
+}
 
     /**
      * Create a new controller instance.
@@ -69,7 +119,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'status' => false,
-            
+
         ]);
     }
 }

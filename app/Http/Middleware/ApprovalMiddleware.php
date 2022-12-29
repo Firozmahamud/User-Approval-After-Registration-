@@ -20,6 +20,8 @@ class ApprovalMiddleware
                 auth()->logout;
 
                 return redirect()->route('login')->with('message',trans('global.your Account Needs Admin Approval'));
+    // return back()->with('success','Item created successfully!');
+
 
             }
         }

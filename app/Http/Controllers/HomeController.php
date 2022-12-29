@@ -18,6 +18,7 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+
     /**
      * Show the application dashboard.
      *
@@ -26,8 +27,22 @@ class HomeController extends Controller
     public function index()
     {
         $users = User::all();
+        return view('welcome',compact('users'));
+    }
+
+    public function admin()
+    {
+        $users = User::all();
+        // return view('admin.dashboard',compact('users'));
         return view('home',compact('users'));
     }
+
+    public function user()
+    {
+        // $users = User::all();
+        return view('user.dashboard');
+    }
+
 
     public function status(Request $request,$id)
     {
@@ -40,7 +55,7 @@ class HomeController extends Controller
         $data->save();
         // return'ok';
         // return redirect()->back()->with
-        return Redirect::to('home')->with('message',$data->name.'status has been changed successfully');
+        return Redirect::to('/admin_dashboard')->with('message',$data->name.' status has been changed successfully');
     }
 
 

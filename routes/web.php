@@ -27,6 +27,12 @@ Route::redirect('/', '/login');
 // Route::redirect('/home', '/admin');
 Auth::routes();
 
+Route::get('/admin_dashboard', [App\Http\Controllers\HomeController::class, 'admin'])->middleware('role:admin')->name('admin.dashboard');
+Route::get('/user_dashboard', [App\Http\Controllers\HomeController::class, 'user'])->middleware('role:user')->name('user.dashboard');
+
+// Route::get('/admin_dashboard', 'Admin\DashboardController@index')->middleware('role:admin');
+// Route::get('/seller_dashboard', 'Seller\DashboardController@index')->middleware('role:seller');
+
 // Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
 //     Route::get('/', 'HomeController@index')->name('home');
 //     // Permissions
